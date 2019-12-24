@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 整合的时候，除了起别名，其他全部都被spring接管，也就是说，都在applicationContext.xml中配置 -->
+	<!-- 可以批量起别名，也可以单独起别名 -->
+	<typeAliases>
+		<!-- 单独起别名 type表示之前的类型-->
+	
+		<!-- 批量起别名, 别名就是类名-->
+		<package name="com.crm.bean"/>
+		<package name="com.crm.support"/>
+	</typeAliases>
+
+</configuration>

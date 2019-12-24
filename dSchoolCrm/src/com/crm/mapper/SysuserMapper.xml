@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crm.mapper.SysuserMapper" >
+  <resultMap id="BaseResultMap" type="com.crm.bean.Sysuser" >
+    <id column="sys_id" property="sysId" jdbcType="INTEGER" />
+    <result column="sys_name" property="sysName" jdbcType="VARCHAR" />
+    <result column="sys_password" property="sysPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sys_id, sys_name, sys_password
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.crm.bean.SysuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sysuser
+    where sys_id = #{sysId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sysuser
+    where sys_id = #{sysId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.crm.bean.SysuserExample" >
+    delete from sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.crm.bean.Sysuser" >
+    insert into sysuser (sys_id, sys_name, sys_password
+      )
+    values (#{sysId,jdbcType=INTEGER}, #{sysName,jdbcType=VARCHAR}, #{sysPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crm.bean.Sysuser" >
+    insert into sysuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysId != null" >
+        sys_id,
+      </if>
+      <if test="sysName != null" >
+        sys_name,
+      </if>
+      <if test="sysPassword != null" >
+        sys_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysId != null" >
+        #{sysId,jdbcType=INTEGER},
+      </if>
+      <if test="sysName != null" >
+        #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null" >
+        #{sysPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.crm.bean.SysuserExample" resultType="java.lang.Integer" >
+    select count(*) from sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sysuser
+    <set >
+      <if test="record.sysId != null" >
+        sys_id = #{record.sysId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sysName != null" >
+        sys_name = #{record.sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysPassword != null" >
+        sys_password = #{record.sysPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sysuser
+    set sys_id = #{record.sysId,jdbcType=INTEGER},
+      sys_name = #{record.sysName,jdbcType=VARCHAR},
+      sys_password = #{record.sysPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crm.bean.Sysuser" >
+    update sysuser
+    <set >
+      <if test="sysName != null" >
+        sys_name = #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null" >
+        sys_password = #{sysPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_id = #{sysId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crm.bean.Sysuser" >
+    update sysuser
+    set sys_name = #{sysName,jdbcType=VARCHAR},
+      sys_password = #{sysPassword,jdbcType=VARCHAR}
+    where sys_id = #{sysId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selecetUser" parameterType="sysuser" resultMap="BaseResultMap">
+  	SELECT * FROM `sysuser` WHERE sys_name = #{sysName} AND sys_password = #{sysPassword}
+  </select>
+</mapper>
